@@ -56,12 +56,12 @@ def sha_xor_encrypt(text :str, sha_string :str):
 def sha_xor_decrypt(cipher :str, sha_string :str):
     if type(cipher) is str:
         if len(cipher) > 256 or len(cipher) != len(sha_string):
-            # Invalid cipher or (cipher, sha_string) pairs
+            # invalid cipher or (cipher, sha_string) pairs
             raise ValueError
         else:
-            sha_bin = bin(int(sha_string, 16))
-            reverse_cipher = int(cipher, 16) ^ int(sha_bin, 2)
-            original_text = reverse_cipher.to_bytes(len(bin(reverse_cipher)) // 8, 'big').decode()
+            sha_bin = bin(int(sha_string, 16)) # convert sha_string from hex to binary
+            reverse_cipher = int(cipher, 16) ^ int(sha_bin, 2) # binary cipher XOR binary sha_string
+            original_text = reverse_cipher.to_bytes(len(bin(reverse_cipher)) // 8, 'big').decode() # convert bin to text, "//" divides and returns int(float)
 
             # # debugging
             # print(bin(reverse_cipher), len(bin(reverse_cipher)))
