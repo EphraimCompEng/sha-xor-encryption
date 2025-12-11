@@ -15,7 +15,7 @@ https://en.wikipedia.org/wiki/SHA-3#Examples_of_SHA-3_variants
 https://csrc.nist.gov/projects/cryptographic-standards-and-guidelines/example-values#aHashing
 """
 
-def sha_xor_encrypt(text :str, sha_string :str):
+def sha_xor_encrypt(text :str, sha_string :str) -> str:
     if type(text) is str:
         text_bin = "".join(f"{ord(char):08b}" for char in text)  # converting text to binary via ascii(ord) encodings
         text_len = len(text_bin)
@@ -53,7 +53,7 @@ def sha_xor_encrypt(text :str, sha_string :str):
         raise ValueError
 
 
-def sha_xor_decrypt(cipher :str, sha_string :str):
+def sha_xor_decrypt(cipher :str, sha_string :str) -> str:
     if type(cipher) is str:
         if len(cipher) > 256 or len(cipher) != len(sha_string):
             # invalid cipher or (cipher, sha_string) pairs
@@ -74,7 +74,7 @@ def sha_xor_decrypt(cipher :str, sha_string :str):
         raise TypeError
 
 
-def main():
+def main() -> None:
     sha3_256 = "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
     encrpyted_text = sha_xor_encrypt("testing", sha3_256)
     raw_text = sha_xor_decrypt(encrpyted_text, sha3_256)
@@ -85,4 +85,5 @@ def main():
     print(raw_text)
     return
 
-main()
+if __name__ == "__main__":
+    main()
