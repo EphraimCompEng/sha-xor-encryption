@@ -16,6 +16,11 @@ https://csrc.nist.gov/projects/cryptographic-standards-and-guidelines/example-va
 """
 
 def sha_xor_encrypt(text :str, sha_string :str) -> str:
+    """
+    1) Converts both text and SHA(key) strings to binary
+    2) Balances/Repeates strings to ensure equal lengths
+    3) Return a single XORed string from balanced key and input text
+    """
     if type(text) is str:
         text_bin = "".join(f"{ord(char):08b}" for char in text)  # converting text to binary via ascii(ord) encodings
         text_len = len(text_bin)
@@ -54,6 +59,9 @@ def sha_xor_encrypt(text :str, sha_string :str) -> str:
 
 
 def sha_xor_decrypt(cipher :str, sha_string :str) -> str:
+    """
+    Tests if encrypted string is the correct length before reversing XOR encryption
+    """
     if type(cipher) is str:
         if len(cipher) > 256 or len(cipher) != len(sha_string):
             # invalid cipher or (cipher, sha_string) pairs
